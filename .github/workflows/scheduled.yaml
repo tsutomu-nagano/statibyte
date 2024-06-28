@@ -2,7 +2,7 @@ name: Check Date
 
 on:
   schedule:
-    - cron: '15 18 * * *' # 毎日 3:15(JST) に実行
+    - cron: '0 4 * * *' # 毎日 0:00(JST) に実行
   workflow_dispatch:
 
 jobs:
@@ -17,10 +17,12 @@ jobs:
           TZ: 'Asia/Tokyo' # タイムゾーン指定
         run: |
           echo "CURRENT_DATETIME=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
+          echo "YESTERDAY_DATETIME=$(date -d '1 day ago' +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
           echo "CURRENT_DAY_OF_MONTH=$(date +'%-d')" >> $GITHUB_ENV
 
       - name: Show current date
         run: echo ${{ env.CURRENT_DATETIME }}   # 現在日時(JST) が表示される
+        run: echo ${{ env.YESTERDAY_DATETIME }}   # 現在日時(JST)の1日前 が表示される
 
       - name: Show day of month
         run: echo ${{ env.CURRENT_DAY_OF_MONTH }}   # 日(1-31) が表示される
