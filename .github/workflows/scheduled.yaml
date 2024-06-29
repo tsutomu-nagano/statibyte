@@ -21,8 +21,9 @@ jobs:
           echo "CURRENT_DAY_OF_MONTH=$(date +'%-d')" >> $GITHUB_ENV
 
       - name: Show current date
-        run: echo ${{ env.CURRENT_DATETIME }}   # 現在日時(JST) が表示される
-        run: echo ${{ env.YESTERDAY_DATETIME }}   # 現在日時(JST)の1日前 が表示される
+        run: |
+          echo ${{ env.CURRENT_DATETIME }}   # 現在日時(JST) が表示される
+          echo ${{ env.YESTERDAY_DATETIME }}   # 現在日時(JST)の1日前 が表示される
 
       - name: Show day of month
         run: echo ${{ env.CURRENT_DAY_OF_MONTH }}   # 日(1-31) が表示される
