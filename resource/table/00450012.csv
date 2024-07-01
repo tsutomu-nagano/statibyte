@@ -1,0 +1,3 @@
+"@id","STATISTICS_NAME","TITLE","CYCLE","SURVEY_DATE","OPEN_DATE","SMALL_AREA","COLLECT_AREA","OVERALL_TOTAL_NUMBER","UPDATED_DATE","DESCRIPTION","STAT_NAME.@code","STAT_NAME.$","GOV_ORG.@code","GOV_ORG.$","MAIN_CATEGORY.@code","MAIN_CATEGORY.$","SUB_CATEGORY.@code","SUB_CATEGORY.$","STATISTICS_NAME_SPEC.TABULATION_CATEGORY","STATISTICS_NAME_SPEC.TABULATION_SUB_CATEGORY1","TITLE_SPEC.TABLE_NAME"
+"0003109570","生命表 完全生命表","完全生命表","-","0","2019-08-30","0","該当なし","5840","2020-10-22","","00450012","生命表","00450","厚生労働省","02","人口・世帯","03","人口動態","生命表","完全生命表","完全生命表"
+"0003109558","生命表 簡易生命表","簡易生命表","年次","0","2020-07-31","0","該当なし","17784","2020-10-22","","00450012","生命表","00450","厚生労働省","02","人口・世帯","03","人口動態","生命表","簡易生命表","簡易生命表"
