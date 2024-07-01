@@ -505,7 +505,7 @@ def convert_yyyy_mm(e):
 # print(df_[df_["yyyy"] == "0"])
 
 
-appid = os.environ["APPID_ESTATAPI"]
+appid = os.environ["APPID"]
 
 
 

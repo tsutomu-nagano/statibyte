@@ -9,6 +9,8 @@ jobs:
 
   py-test:
     runs-on: ubuntu-latest
+    env:
+      APPID: ${{ secrets.APPID_ESTATAPI }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup Python
