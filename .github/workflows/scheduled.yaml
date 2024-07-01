@@ -6,6 +6,23 @@ on:
   workflow_dispatch:
 
 jobs:
+
+  py-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+          architecture: 'x64'
+      - name: Get Python version
+        run: python -V
+      - name: Install dependencies
+        run: pip install -r docker/requirements.txt
+      - name: Run Python
+        run: python worker/get_data.py
+
   build:
     runs-on: ubuntu-latest
     steps:
