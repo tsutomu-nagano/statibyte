@@ -9,9 +9,9 @@ import csv
 
 import requests
 import pandas as pd
+import sys
 
 from estat_api import *
-
 
 mm_of_q = {
     "1":"0103",
@@ -118,20 +118,11 @@ def create_stat_list_of_db():
         'GOV_ORG.$' : 'govname',
         }
 
-    return(pd.json_normalize(data).rename(columns= renames))
+    pd.json_normalize(data).rename(columns= renames).to_csv("statlist.csv", index = False)
 
 
-# def create_table_list(current_date):
 
-#     url = f"http://api.e-stat.go.jp/rest/3.0/app/json/getStatsList?appId={appid}&updatedDate={current_date}"
-
-#     res = requests.get(url)
-
-#     table_infs = to_list(res.json()["GET_STATS_LIST"]["DATALIST_INF"]["TABLE_INF"])
-
-#     return(pd.concat([pd.json_normalize(table_inf).astype(str) for table_inf in table_infs]))
-
-#     # pd.concat([pd.json_normalize(table_inf).astype(str) for table_inf in table_infs]).to_parquet(f"table/{statcode}.parquet")
+    # pd.concat([pd.json_normalize(table_inf).astype(str) for table_inf in table_infs]).to_parquet(f"table/{statcode}.parquet")
 
 
 
@@ -494,23 +485,20 @@ def convert_yyyy_mm(e):
 
 # print(df_[df_["yyyy"] == "0"])
 
-
 appid = os.environ["APPID"]
 root_dir = Path(os.environ["ROOT_DIR"])
 
-root_dir.mkdir(parents=True, exist_ok = True)
+# 政府統計コードをパラメータで受け取る
+args = sys.argv
+statcode = args[1]
+# statcode = "00020111"
 
-# 日付はパラメータで受け取る
-current_date = "20240628"
-
-# 統計の一覧を取得
-statlist_dest = root_dir / "statlist.csv"
-create_stat_list_of_db().to_csv(statlist_dest, index = False)
-
+# 日付のフォルダ作成
+tbl_dir = root_dir / "table"
+tbl_dir.mkdir(parents=True, exist_ok = True)
 
 # テーブルの情報を取得
-table_dest = root_dir / "table_of_1day.csv"
-params = {"appId": appid, "updatedDate": current_date}
+table_dest = tbl_dir / f"{statcode}.csv"
+params = {"appId": appid, "statsCode": statcode}
 create_table_list(params).to_csv(table_dest, index = False, quoting=csv.QUOTE_ALL)
 
-# メタの情報を取得

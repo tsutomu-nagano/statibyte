@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APPID: ${{ secrets.APPID_ESTATAPI }}
+      ROOT_DIR: resource
     steps:
       - uses: actions/checkout@v2
       - name: Setup Python
@@ -24,6 +25,10 @@ jobs:
         run: pip install -r docker/requirements.txt
       - name: Run Python
         run: python worker/get_data.py
+      - name: Run Python of stat
+        run: |
+          python worker/get_data_of_stat.py "00020111"
+          python worker/get_data_of_stat.py "00020112"
 
       - name: Commit changes
         run: |
