@@ -102,41 +102,6 @@ retry_count = 3
 # logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s:%(name)s - %(message)s", filename="test.log")
 
 
-
-def create_stat_list_of_db():
-
-    url = f"http://api.e-stat.go.jp/rest/3.0/app/json/getStatsList?appId={appid}&statsNameList=Y"
-
-    res = requests.get(url)
-
-    data = res.json()["GET_STATS_LIST"]["DATALIST_INF"]["LIST_INF"]
-
-    renames = {
-        'STAT_NAME.@code': 'statcode',
-        'STAT_NAME.$': 'statname',
-        'GOV_ORG.@code': 'govcode',
-        'GOV_ORG.$' : 'govname',
-        }
-
-    return(pd.json_normalize(data).rename(columns= renames))
-
-
-# def create_table_list(current_date):
-
-#     url = f"http://api.e-stat.go.jp/rest/3.0/app/json/getStatsList?appId={appid}&updatedDate={current_date}"
-
-#     res = requests.get(url)
-
-#     table_infs = to_list(res.json()["GET_STATS_LIST"]["DATALIST_INF"]["TABLE_INF"])
-
-#     return(pd.concat([pd.json_normalize(table_inf).astype(str) for table_inf in table_infs]))
-
-#     # pd.concat([pd.json_normalize(table_inf).astype(str) for table_inf in table_infs]).to_parquet(f"table/{statcode}.parquet")
-
-
-
-
-
 def create_meta_list(statcode: str, statdisp_id, overwrite = False):
 
     dest = Path("meta") / statcode / f"{statdisp_id}.parquet"
@@ -505,7 +470,7 @@ current_date = "20240628"
 
 # 統計の一覧を取得
 statlist_dest = root_dir / "statlist.csv"
-create_stat_list_of_db().to_csv(statlist_dest, index = False)
+create_stat_list_of_db(appid).to_csv(statlist_dest, index = False)
 
 
 # テーブルの情報を取得

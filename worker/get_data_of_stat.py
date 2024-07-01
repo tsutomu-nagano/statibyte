@@ -103,22 +103,6 @@ retry_count = 3
 
 
 
-def create_stat_list_of_db():
-
-    url = f"http://api.e-stat.go.jp/rest/3.0/app/json/getStatsList?appId={appid}&statsNameList=Y"
-
-    res = requests.get(url)
-
-    data = res.json()["GET_STATS_LIST"]["DATALIST_INF"]["LIST_INF"]
-
-    renames = {
-        'STAT_NAME.@code': 'statcode',
-        'STAT_NAME.$': 'statname',
-        'GOV_ORG.@code': 'govcode',
-        'GOV_ORG.$' : 'govname',
-        }
-
-    pd.json_normalize(data).rename(columns= renames).to_csv("statlist.csv", index = False)
 
 
 
@@ -491,14 +475,20 @@ root_dir = Path(os.environ["ROOT_DIR"])
 # 政府統計コードをパラメータで受け取る
 args = sys.argv
 statcode = args[1]
-# statcode = "00020111"
+# statcode = "all"
 
 # 日付のフォルダ作成
 tbl_dir = root_dir / "table"
 tbl_dir.mkdir(parents=True, exist_ok = True)
 
 # テーブルの情報を取得
-table_dest = tbl_dir / f"{statcode}.csv"
-params = {"appId": appid, "statsCode": statcode}
-create_table_list(params).to_csv(table_dest, index = False, quoting=csv.QUOTE_ALL)
+if statcode == "all":
+    statcodes = create_stat_list_of_db(appid)["statcode"].tolist()
+else:
+    statcodes = [statcode]
+
+for statcode in statcodes:
+    table_dest = tbl_dir / f"{statcode}.csv"
+    params = {"appId": appid, "statsCode": statcode}
+    create_table_list(params).to_csv(table_dest, index = False, quoting=csv.QUOTE_ALL)
 

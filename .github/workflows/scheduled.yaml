@@ -27,8 +27,7 @@ jobs:
         run: python worker/get_data.py
       - name: Run Python of stat
         run: |
-          python worker/get_data_of_stat.py "00020111"
-          python worker/get_data_of_stat.py "00020112"
+          python worker/get_data_of_stat.py "all"
 
       - name: Commit changes
         run: |
