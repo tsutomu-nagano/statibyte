@@ -24,7 +24,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r docker/requirements.txt
       - name: Run Python
-        run: python worker/get_data.py
+        run: |
+          python worker/get_data.py
+          python worker/get_meta.py $ROOT_DIR/table_of_1day.csv
+
       - name: Run Python of stat
         run: |
           python worker/get_data_of_stat.py "all"
