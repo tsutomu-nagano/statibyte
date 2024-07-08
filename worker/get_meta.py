@@ -29,7 +29,7 @@ meta_dir.mkdir(parents=True, exist_ok = True)
 
 ids = pd.read_csv(src, dtype = str, usecols = ["@id"])["@id"].tolist()
 
-for id in ids[1:2]:
+for id in ids:
     dest = meta_dir / f"{id}.csv"
     create_meta_list(appid, id).to_csv(dest, index = False, quoting=csv.QUOTE_ALL)
 
