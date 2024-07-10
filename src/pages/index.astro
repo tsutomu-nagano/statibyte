@@ -3,6 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import csv from 'csv-parser';
+import '../styles/styles.css';
 
 const dataFilePath = path.resolve('resource/statlist.csv');
 const results = [];
@@ -27,7 +28,6 @@ const csvData = await readCSVData();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CSV Data Page</title>
-    <link rel="stylesheet" href="src/styles/styles.css">
   </head>
   <body>
     <h1>CSV Data</h1>
