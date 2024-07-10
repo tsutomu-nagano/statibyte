@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import csv from 'csv-parser';
 
-const dataFilePath = path.resolve('../resource/statlist.csv');
+const dataFilePath = path.resolve('resource/statlist.csv');
 const results = [];
 
 const readCSVData = () => new Promise((resolve, reject) => {
@@ -27,26 +27,18 @@ const csvData = await readCSVData();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CSV Data Page</title>
+    <link rel="stylesheet" href="src/styles/styles.css">
   </head>
   <body>
     <h1>CSV Data</h1>
-    <table>
-      <thead>
-        <tr>
-          {Object.keys(csvData[0]).map((header) => (
-            <th>{header}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {csvData.map((row, index) => (
-          <tr key={index}>
-            {Object.values(row).map((cell) => (
-              <td>{cell}</td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div class="card-container">
+      {csvData.map((row, index) => (
+        <div class="card" key={index}>
+            <h3>{row["statcode"]}</h2>
+            <h2>{row["statname"]}</h2>
+            <div class="badge">{row["govname"]}</div>
+        </div>
+      ))}
+    </div>
   </body>
 </html>
