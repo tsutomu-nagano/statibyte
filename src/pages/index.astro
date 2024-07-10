@@ -1,15 +1,52 @@
 ---
+// src/pages/index.astro
+import fs from 'fs';
+import path from 'path';
+import csv from 'csv-parser';
+
+const dataFilePath = path.resolve('../resource/statlist.csv');
+const results = [];
+
+const readCSVData = () => new Promise((resolve, reject) => {
+  fs.createReadStream(dataFilePath)
+    .pipe(csv())
+    .on('data', (data) => results.push(data))
+    .on('end', () => {
+      resolve(results);
+    })
+    .on('error', (error) => {
+      reject(error);
+    });
+});
+
+const csvData = await readCSVData();
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSV Data Page</title>
+  </head>
+  <body>
+    <h1>CSV Data</h1>
+    <table>
+      <thead>
+        <tr>
+          {Object.keys(csvData[0]).map((header) => (
+            <th>{header}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {csvData.map((row, index) => (
+          <tr key={index}>
+            {Object.values(row).map((cell) => (
+              <td>{cell}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </body>
 </html>
