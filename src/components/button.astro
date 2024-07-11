@@ -1,0 +1,39 @@
+
+---
+
+import { Icon } from 'astro-icon/components'
+
+interface Props {
+  icon: string;
+  text: string;
+}
+
+const { icon, text } = Astro.props;
+---
+
+<style>
+
+    div {
+        font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        /* border: 0;
+        border-radius: 3em; */
+        cursor: pointer;
+        display: inline-block;
+        line-height: 1;
+        /* color: #333; */
+        background-color: transparent;
+        /* box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset; */
+        font-size: 14px;
+        padding: 11px 5px;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+    }
+
+</style>
+
+<div>
+    <Icon name={icon} />
+    <span>{text}</span>
+</div>

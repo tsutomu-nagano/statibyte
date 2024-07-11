@@ -1,11 +1,17 @@
 /* src/styles/styles.css */
+
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
-    margin: 0;
     padding: 20px;
   }
-  
+
+  .title {
+    font-family: 'Press Start 2P', system-ui;
+    font-size: 50px;
+  }
+
   .card-container {
     display: flex;
     flex-direction: column;
@@ -23,9 +29,9 @@ body {
     margin-top: 0;
   }
   
-  .card p {
+  /* .card p {
     margin: 0;
-  }
+  } */
   
   .badge {
     font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -38,6 +44,6 @@ body {
     color: #333;
     background-color: transparent;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
-    font-size: 14px;
+    font-size: 25px;
     padding: 11px 20px;
   }

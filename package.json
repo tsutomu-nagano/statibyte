@@ -11,7 +11,13 @@
         "astro": "astro"
     },
     "dependencies": {
+        "@fontsource/noto-sans-miao": "^5.0.13",
+        "@fontsource/press-start-2p": "^5.0.20",
         "astro": "^4.11.5",
+        "astro-icon": "^1.1.0",
         "csv-parser": "^3.0.0"
+    },
+    "devDependencies": {
+        "@iconify-json/bi": "^1.1.23"
     }
 }

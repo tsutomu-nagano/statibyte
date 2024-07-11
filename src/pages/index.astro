@@ -5,6 +5,14 @@ import path from 'path';
 import csv from 'csv-parser';
 import '../styles/styles.css';
 
+import '@fontsource/press-start-2p';
+import '@fontsource/noto-sans-miao';
+
+import { Icon } from 'astro-icon/components'
+
+import Button from '../components/button.astro'
+import Meta from '../components/meta.astro'
+
 const dataFilePath = path.resolve('resource/statlist.csv');
 const results = [];
 
@@ -23,20 +31,44 @@ const readCSVData = () => new Promise((resolve, reject) => {
 const csvData = await readCSVData();
 ---
 
+<style>
+    div.info {
+        display: flex;
+        gap: 10px;
+        flex-direction: row;
+
+    }
+
+    div.year {
+        display: flex;
+        gap: 10px;
+        flex-direction: row;
+
+    }
+
+</style>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CSV Data Page</title>
+    <title>statibyte</title>
   </head>
   <body>
-    <h1>CSV Data</h1>
+    <p class="title">Statibyte</p>
     <div class="card-container">
       {csvData.map((row, index) => (
         <div class="card" key={index}>
-            <h3>{row["statcode"]}</h2>
+            <div class="info">
+                <Button icon = "bi:at" text={row["statcode"]} />
+                <Button icon = "bi:tag" text={row["govname"]} />
+            </div>
             <h2>{row["statname"]}</h2>
-            <div class="badge">{row["govname"]}</div>
+            <div class="year">
+                <Meta text="2020" />
+                <Meta text="2019" />
+                <Meta text="2018" />
+            </div>
         </div>
       ))}
     </div>
