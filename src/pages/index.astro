@@ -12,10 +12,10 @@ import StatCard from "../components/statcard.astro";
 const statListPath = path.resolve("resource/statlist.csv");
 const yearListPath = path.resolve("resource/yearlist.csv");
 
-const results = [];
 
 const readCSVData = (filePath) =>
     new Promise((resolve, reject) => {
+        const results = [];
         fs.createReadStream(filePath)
             .pipe(csv())
             .on("data", (data) => results.push(data))
@@ -43,15 +43,14 @@ async function joinFiles(file1Path, file2Path, key) {
         );
 
 
-        const joinedData = data1.map((row1) => {
-            const keyVal = row1[key];
+        const joinedData = data1.map((row, index) => {
+            const keyVal = row[key];
             return {
-                ...row1,
+                ...row,
                 years: yearsById[keyVal] || [], // 見つからない場合は空リストを返す
             };
         });
 
-        // console.log(joinedData);
         return joinedData;
     } catch (error) {
         console.error("Error:", error);
@@ -59,6 +58,9 @@ async function joinFiles(file1Path, file2Path, key) {
 }
 
 const csvData = await joinFiles(statListPath, yearListPath, "statcode");
+
+console.log(csvData.length);
+
 ---
 
 <style>
