@@ -1,6 +1,9 @@
 ---
-import Button from '../components/button.astro'
+import Label from '../components/label.astro'
 import Meta from '../components/meta.astro'
+
+import { fade } from 'astro:transitions';
+import { sequence } from 'astro:middleware';
 
 interface Props {
   statcode: string;
@@ -47,9 +50,9 @@ const estat_url = "https://www.e-stat.go.jp/stat-search/database?page=1&toukei="
 
 <div class="card">
     <div class="info">
-        <Button icon = "bi:at" text={statcode} />
-        <Button icon = "fluent:building-government-20-regular" text={govname} />
-        <a href={estat_url} target="_blank" rel="noopener"><Button icon = "bi:link-45deg" text="e-Statで表示" /></a>
+        <Label icon = "bi:at" text={statcode} />
+        <Label icon = "fluent:building-government-20-regular" text={govname} />
+        <a href={estat_url} target="_blank" rel="noopener"><Label icon = "bi:link-45deg" text="e-Statで表示" /></a>
     </div>
     <h2>{statname}</h2>
     <div class="year">
@@ -59,4 +62,5 @@ const estat_url = "https://www.e-stat.go.jp/stat-search/database?page=1&toukei="
             ))
         }
     </div>
+
 </div>

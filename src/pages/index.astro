@@ -1,4 +1,6 @@
 ---
+// import '@/styles/globals.css'
+
 import fs from "fs";
 import path from "path";
 import csv from "csv-parser";
@@ -76,7 +78,7 @@ const csvData = await joinFiles(statListPath, yearListPath, "statcode");
                     govname={row["govname"]}
                     statname={row["statname"]}
                     years={row["years"]}
-                />
+                    />
             ))
         }
     </div>

@@ -11,13 +11,25 @@
         "astro": "astro"
     },
     "dependencies": {
+        "@astrojs/node": "^8.3.2",
         "@fontsource/noto-sans-miao": "^5.0.13",
         "@fontsource/press-start-2p": "^5.0.20",
+        "@fontsource/roboto": "^5.0.13",
+        "@radix-ui/react-dialog": "^1.1.1",
+        "@radix-ui/react-slot": "^1.1.0",
+        "@types/node": "^20.14.10",
+        "@types/react": "^18.3.3",
+        "@types/react-dom": "^18.3.0",
         "astro": "^4.11.5",
         "astro-icon": "^1.1.0",
+        "class-variance-authority": "^0.7.0",
+        "clsx": "^2.1.1",
         "csv-parser": "^3.0.0",
         "danfojs": "^1.1.2",
-        "lodash": "^4.17.21"
+        "lodash": "^4.17.21",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "typescript": "^5.5.3"
     },
     "devDependencies": {
         "@iconify-json/ant-design": "^1.1.16",
