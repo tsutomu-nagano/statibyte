@@ -11,6 +11,8 @@ interface Props {
 
 const { statcode, govname, statname, years } = Astro.props;
 
+const estat_url = "https://www.e-stat.go.jp/stat-search/database?page=1&toukei=" + statcode;
+
 ---
 
 <style>
@@ -37,8 +39,9 @@ const { statcode, govname, statname, years } = Astro.props;
     }
 
   h2 {
-    margin: 10px auto;
+    margin: 10px auto 20px auto;
   }
+
 
 </style>
 
@@ -46,6 +49,7 @@ const { statcode, govname, statname, years } = Astro.props;
     <div class="info">
         <Button icon = "bi:at" text={statcode} />
         <Button icon = "fluent:building-government-20-regular" text={govname} />
+        <a href={estat_url} target="_blank" rel="noopener"><Button icon = "bi:link-45deg" text="e-Statで表示" /></a>
     </div>
     <h2>{statname}</h2>
     <div class="year">

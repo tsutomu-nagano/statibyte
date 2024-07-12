@@ -5,8 +5,6 @@ import csv from "csv-parser";
 import _ from "lodash";
 
 import MySiteLayout from "../layouts/baselayout.astro";
-import Button from "../components/button.astro";
-import Meta from "../components/meta.astro";
 import StatCard from "../components/statcard.astro";
 
 const statListPath = path.resolve("resource/statlist.csv");
@@ -58,8 +56,6 @@ async function joinFiles(file1Path, file2Path, key) {
 }
 
 const csvData = await joinFiles(statListPath, yearListPath, "statcode");
-
-console.log(csvData.length);
 
 ---
 
