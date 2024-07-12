@@ -6,9 +6,9 @@ import node from "@astrojs/node";
 export default defineConfig({
   site: 'https://tsutomu-nagano.github.io',
   base: '/statibyte',
-  integrations: [icon()],
-  output: "server",
-  adapter: node({
-    mode: "standalone"
-  })
+  integrations: [icon()]
+  // output: "server",
+  // adapter: node({
+  //   mode: "standalone"
+  // })
 });
