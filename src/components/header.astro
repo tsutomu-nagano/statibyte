@@ -1,0 +1,59 @@
+---
+import "@fontsource/press-start-2p";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    title: string;
+}
+const { title } = Astro.props;
+---
+
+<style>
+    span.title {
+        font-family: "Press Start 2P", system-ui;
+        font-size: 25px;
+        line-height: 5%;
+    }
+
+    nav.title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+        background-color: #007BFF;
+        color: white;
+        padding: 15px 5%;
+        text-align: center;
+        width: 90%;
+        position: fixed;
+        top: 0;
+        z-index: 2;
+    }
+
+    nav.title>* {
+        min-width: 0;
+    }
+
+    [data-icon="bi:clock-history"] {
+        font-size: 2rem;
+    }
+
+
+    a {
+        margin-left: auto;
+        text-decoration: none;
+        color: white;
+    }
+
+    [data-icon="bi:github"] {
+        font-size: 2rem;
+    }
+
+
+</style>
+
+<nav class="title">
+    <Icon name="bi:clock-history" />
+    <span class="title">{title}</span>
+    <a href="https://github.com/tsutomu-nagano/statibyte"><Icon name="bi:github" /></a>
+</nav>

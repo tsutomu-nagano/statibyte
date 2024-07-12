@@ -1,5 +1,6 @@
 resource_/
 .astro/
+dist/
 
 **/__pycache__/
 

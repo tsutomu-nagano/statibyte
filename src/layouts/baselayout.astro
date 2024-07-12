@@ -1,0 +1,51 @@
+---
+import Footer from "../components/footer.astro";
+import Header from "../components/header.astro";
+
+import "@fontsource/noto-sans-miao";
+
+import { Icon } from "astro-icon/components";
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+    <style>
+
+body {
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #f0f0f0;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+article {
+    margin-left: 200px; /* Sidebar width */
+    margin-top: 60px; /* Header height */
+    padding: 20px;
+    flex: 1;
+}
+
+    </style>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+
+    <body>
+        <Header title="Statibyte" />
+        <article>
+            <slot />
+            <!-- your content is injected here -->
+        </article>
+        <Footer />
+    </body>
+    <style>
+        h1 {
+            font-size: 2rem;
+        }
+    </style>
+</html>

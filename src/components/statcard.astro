@@ -1,0 +1,58 @@
+---
+import Button from '../components/button.astro'
+import Meta from '../components/meta.astro'
+
+interface Props {
+  statcode: string;
+  govname: string;
+  statname: string;
+  years: number[];
+}
+
+const { statcode, govname, statname, years } = Astro.props;
+
+---
+
+<style>
+  
+  div.card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .info {
+        display: flex;
+        gap: 10px;
+        flex-direction: row;
+  }
+
+  div.year {
+        display: flex;
+        gap: 10px;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+    }
+
+  h2 {
+    margin: 10px auto;
+  }
+
+</style>
+
+<div class="card">
+    <div class="info">
+        <Button icon = "bi:at" text={statcode} />
+        <Button icon = "fluent:building-government-20-regular" text={govname} />
+    </div>
+    <h2>{statname}</h2>
+    <div class="year">
+        {
+            years.map(year => (
+                <Meta text={String(year)} />
+            ))
+        }
+    </div>
+</div>

@@ -1,76 +1,85 @@
 ---
-// src/pages/index.astro
-import fs from 'fs';
-import path from 'path';
-import csv from 'csv-parser';
-import '../styles/styles.css';
+import fs from "fs";
+import path from "path";
+import csv from "csv-parser";
+import _ from "lodash";
 
-import '@fontsource/press-start-2p';
-import '@fontsource/noto-sans-miao';
+import MySiteLayout from "../layouts/baselayout.astro";
+import Button from "../components/button.astro";
+import Meta from "../components/meta.astro";
+import StatCard from "../components/statcard.astro";
 
-import { Icon } from 'astro-icon/components'
+const statListPath = path.resolve("resource/statlist.csv");
+const yearListPath = path.resolve("resource/yearlist.csv");
 
-import Button from '../components/button.astro'
-import Meta from '../components/meta.astro'
-
-const dataFilePath = path.resolve('resource/statlist.csv');
 const results = [];
 
-const readCSVData = () => new Promise((resolve, reject) => {
-  fs.createReadStream(dataFilePath)
-    .pipe(csv())
-    .on('data', (data) => results.push(data))
-    .on('end', () => {
-      resolve(results);
-    })
-    .on('error', (error) => {
-      reject(error);
+const readCSVData = (filePath) =>
+    new Promise((resolve, reject) => {
+        fs.createReadStream(filePath)
+            .pipe(csv())
+            .on("data", (data) => results.push(data))
+            .on("end", () => {
+                resolve(results);
+            })
+            .on("error", (error) => {
+                reject(error);
+            });
     });
-});
 
-const csvData = await readCSVData();
+async function joinFiles(file1Path, file2Path, key) {
+    try {
+        const [data1, data2] = await Promise.all([
+            readCSVData(file1Path),
+            readCSVData(file2Path),
+        ]);
+
+        const groupedData2 = _.groupBy(data2, key);
+        const yearsById = _.mapValues(groupedData2, (group) =>
+            group
+            .map((row) => row.year)
+            .filter((year) => year !== undefined)
+            .sort((a, b) => Number(b) - Number(a))
+        );
+
+
+        const joinedData = data1.map((row1) => {
+            const keyVal = row1[key];
+            return {
+                ...row1,
+                years: yearsById[keyVal] || [], // 見つからない場合は空リストを返す
+            };
+        });
+
+        // console.log(joinedData);
+        return joinedData;
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+const csvData = await joinFiles(statListPath, yearListPath, "statcode");
 ---
 
 <style>
-    div.info {
+    .card-container {
         display: flex;
-        gap: 10px;
-        flex-direction: row;
-
+        flex-direction: column;
+        gap: 20px;
     }
-
-    div.year {
-        display: flex;
-        gap: 10px;
-        flex-direction: row;
-
-    }
-
 </style>
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>statibyte</title>
-  </head>
-  <body>
-    <p class="title">Statibyte</p>
+<MySiteLayout title="Statibyte">
     <div class="card-container">
-      {csvData.map((row, index) => (
-        <div class="card" key={index}>
-            <div class="info">
-                <Button icon = "bi:at" text={row["statcode"]} />
-                <Button icon = "bi:tag" text={row["govname"]} />
-            </div>
-            <h2>{row["statname"]}</h2>
-            <div class="year">
-                <Meta text="2020" />
-                <Meta text="2019" />
-                <Meta text="2018" />
-            </div>
-        </div>
-      ))}
+        {
+            csvData.map((row, index) => (
+                <StatCard
+                    statcode={row["statcode"]}
+                    govname={row["govname"]}
+                    statname={row["statname"]}
+                    years={row["years"]}
+                />
+            ))
+        }
     </div>
-  </body>
-</html>
+</MySiteLayout>
